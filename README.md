@@ -62,6 +62,16 @@ node tests/engine.test.cjs
 
 The zero-dependency suite extracts the actual shipped engine from `index.html`. It checks all **2,598,960** five-card poker combinations against known category totals, ace-low handling, tie-breaks, contracts, duplicate-card protection and **1,500** complete seeded matches across the rival difficulties.
 
+Optional browser checks (requires the developer-only Playwright package and its Chromium browser):
+
+```sh
+npm install --no-save playwright
+npx playwright install chromium
+node tests/browser.test.cjs
+```
+
+To use an existing Chrome binary instead, set `CHROME_PATH`. Screenshots are written to `/tmp`. No installed packages are used by the delivered game.
+
 Browser verification covers: a full 15-pick match, score display, rules, fresh-game controls, refresh limits, daily repeatability, keyboard operation and layouts at 320, 390 and 1280px. No external fonts, images, scripts or libraries are loaded by the game.
 
 ## Design decisions and progress
@@ -80,6 +90,7 @@ Browser verification covers: a full 15-pick match, score display, rules, fresh-g
 - Replaced an early deck-replenishment approach with a reshuffle of only unplaced cards. This prevents duplicate physical cards anywhere on the table and keeps normal poker rules intact.
 - Exhaustively checked all poker hand categories and simulated 1,500 games.
 - Checked phone and desktop layouts and a complete match in Chrome.
+- Changed rival hands to readable stacked rows on narrow phones, keeping the visible-information strategy usable at 320px.
 
 ## Limitations
 
